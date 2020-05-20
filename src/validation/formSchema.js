@@ -13,6 +13,8 @@ const formSchema = yup.object().shape({
         .email('Email must be a valid email address')
         .required('Email is a required field'),
     password: yup.string()
+        .trim()
+        .min(6, 'Password must be at least six characters long')
         .required('Password is a required field'),
 })
 

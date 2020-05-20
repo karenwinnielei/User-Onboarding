@@ -31,7 +31,13 @@ export default function App() {
   const [disabled, setDisabled] = useState(initialDisabled)
 
   const onInputChange = evt => {
+    const name = evt.target.name
+    const value = evt.target.value
 
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
   }
 
   const onCheckboxChange = evt => {

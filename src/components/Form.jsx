@@ -28,7 +28,8 @@ return (
             <label>First Name&nbsp;
                 <input 
                     value={values.firstName}
-                    name='first_name'
+                    onChange={onInputChange}
+                    name='firstName'
                     type='text'
                 />
             </label>
@@ -37,7 +38,7 @@ return (
                 <input
                     value={values.lastName}
                     onChange={onInputChange} 
-                    name='last_name'
+                    name='lastName'
                     type='text'
                 />
             </label>
