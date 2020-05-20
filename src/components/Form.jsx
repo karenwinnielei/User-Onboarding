@@ -21,6 +21,7 @@ return (
                 <div> {errors.lastName} </div>
                 <div> {errors.email} </div>
                 <div> {errors.password} </div>
+                <div> {errors.terms} </div>
             </div>
         </div>
         <div>
@@ -69,7 +70,6 @@ return (
                     type='checkbox'
                 />
             </label>
-
         </div>
     </form>
 )
