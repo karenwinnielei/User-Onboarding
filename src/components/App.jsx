@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../src/index.css';
 import Form from './Form'
-import Member from './Member'
+import User from './User'
 import formSchema from '../validation/formSchema'
 import * as yup from 'yup'
 import axios from 'axios'
@@ -19,38 +19,35 @@ const initialFormErrors = {
   lastName: '',
   email: '',
   password: '',
-  // terms: false, 
+  terms: false, 
 }
 
-const initialMembers = []
+const initialUsers = []
 const initialDisabled = true
 
 export default function App() {
-  const [members, setMembers] = useState(initialMembers)
+  const [users, setUsers] = useState(initialUsers)
   const [formValues, setFormValues] = useState(initialFormValues)
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
 
-  const getMembers = () => {
+  const getUsers = () => {
     axios.get('https://reqres.in/api/users')
       .then(response => {
-        setMembers(response.data)
-        console.log(response.data)
-       console.log(members)
+        setUsers(response.data.data)
       })
       .catch(error => {
         debugger
       })
   }
 
-  const postNewMember = newMember => {
-    axios.post('https://reqres.in/api/users', newMember)
-      .then(response => {
-        setMembers([response.data, ...members])
-        console.log('success', response)
-
+  const postNewUser = newUser => {
+    axios.post('https://reqres.in/api/users', newUser)
+      .then(res => {
+        setUsers([res.data, ...users])
+        console.log(res.data)
       })
-      .catch(error =>{
+      .catch(error => {
         debugger
       })
       .finally(() =>{
@@ -61,6 +58,22 @@ export default function App() {
   const onInputChange = evt => {
     const name = evt.target.name
     const value = evt.target.value
+
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(valid => {
+        setFormErrors({
+          ...formErrors,
+          [name]: '',
+        });
+      })
+      .catch(err => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0]
+        });
+      });
 
     setFormValues({
       ...formValues,
@@ -79,19 +92,18 @@ export default function App() {
 
   const onSubmit = evt => {
     evt.preventDefault()
-
-    const newMember = {
+    const newUser = {
       firstName: formValues.firstName.trim(),
       lastName: formValues.lastName.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
       terms: formValues.terms
     }
-    postNewMember(newMember)
+    postNewUser(newUser)
   }
 
   useEffect(() => {
-    getMembers()
+    getUsers()
   }, [])
 
   useEffect(() => {
@@ -114,14 +126,17 @@ export default function App() {
         disabled={disabled}
         errors={formErrors}
       />
-      
+      <pre>{JSON.stringify(users.data, null, 2)}</pre>
       {
-        members.map(member => {
+        users.map(user => {
           return (
-            <Member key ={member.id} details={member}/>
+              <User key ={user.id} details ={user} />
           )
         })
+
       }
+      
+
 
     </div>
   );

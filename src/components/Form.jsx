@@ -13,7 +13,7 @@ export default function Form(props){
 return (
     <form onSubmit={onSubmit}>
         <div>
-            <h2>Add a Member</h2>
+            <h2>Add a User</h2>
             <button disabled={disabled}>Submit</button>
 
             <div>
