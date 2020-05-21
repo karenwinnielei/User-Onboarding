@@ -33,7 +33,7 @@ return (
                     name='firstName'
                     type='text'
                 />
-            </label>
+            </label><br></br>
 
             <label>Last Name&nbsp;
                 <input
@@ -42,7 +42,7 @@ return (
                     name='lastName'
                     type='text'
                 />
-            </label>
+            </label><br></br>
 
             <label>Email&nbsp;
                 <input
@@ -51,7 +51,7 @@ return (
                     name='email'
                     type='email'
                 />
-            </label>
+            </label><br></br>
 
             <label>Password&nbsp;
                 <input 
@@ -60,7 +60,7 @@ return (
                     name='password'
                     type='password'
                 />
-            </label>
+            </label><br></br>
 
             <label>Terms of Service&nbsp;
                 <input
