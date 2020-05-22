@@ -82,8 +82,21 @@ describe('Form validation', () => {
     })
 
     it('validates terms correctly', () => {
-        cy.contains('Terms of service must be checked')
         cy.get('input[name="terms"]').check()
         cy.contains('Terms of service must be checked').should('not.exist')
     })
+})
+
+describe('Submitting and deleting friends', () => {
+    it('can submit and delete a friend', () => {
+        cy.visit('http://localhost:3000')
+        cy.get('input[name="firstName"]').type('Karen')
+        cy.get('input[name="lastName"]').type('Lei')
+        cy.get('input[name="email"]').type('karen@karen.com')
+        cy.get('input[name="password"]').type('karenlei')
+        cy.get('input[name="terms"]').check()
+        cy.get('button').click()
+        cy.get('h2').contains('Karen')
+    })
+
 })
